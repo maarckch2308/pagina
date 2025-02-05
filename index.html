@@ -48,7 +48,7 @@
     }
     #message {
       position: fixed;
-      bottom: 10%;
+      bottom: 5%;
       width: 90%;
       background: rgba(255, 255, 255, 0.9);
       padding: 20px;
@@ -89,11 +89,11 @@
 </head>
 <body>
   <div id="game">
-    <div class="title">Atrapa todos los corazones, son 8</div>
+    <div class="title">Atrapa todos los corazones, son 8 bonita :3</div>
   </div>
   <div id="message">
     <p id="phrase">¡Atrapa corazones para ver las frases!</p>
-    <button onclick="restartGame()">Reiniciar si no atrapaste todas</button>
+    <button onclick="restartGame()">Reiniciar, te faltó pinchar corazones</button>
     <button class="continue-btn" id="continueBtn" onclick="goToNextPage()" style="display: none;">Continuar</button>
   </div>
 
@@ -106,21 +106,23 @@
     let caughtHearts = 0;
 
     const phrases = [
-      "Eres muy bonita",
-      "Debí verte más en el colegio :C",
-      "Carita toda hermosa",
-      "Tania linda",
-      "Lindos ojitos que tienes",
+      "Buenos Días Tania 🥺",
+      "Eres bien bonita",
+      "Tienes una linda carita",
+      "Manitas muy lindas",
       "Bailamos?",
-      "Manitas lindas",
-      "HERMOSAAAAAAAAAAAAAAA"
+      "Debí verte más en el colegio :c jaja",
+      "Carita toda linda que tienes",
+      "HERMOSAAAAAAAAAA"
     ];
 
     function createHeart() {
       const heart = document.createElement('div');
       heart.classList.add('heart');
+      
+      // Posiciona los corazones en la parte superior (máximo 60% de la pantalla)
       heart.style.left = Math.random() * 80 + 'vw';
-      heart.style.top = Math.random() * 80 + 'vh';
+      heart.style.top = Math.random() * 50 + 'vh'; 
 
       heart.addEventListener('click', () => {
         if (caughtHearts < phrases.length) {
@@ -136,10 +138,16 @@
       });
 
       gameContainer.appendChild(heart);
+
+      setTimeout(() => {
+        if (heart.parentElement) {
+          heart.remove();
+        }
+      }, 4000);
     }
 
     function showFinalMessage() {
-      phraseText.innerText = "Atrapaste todos, ahora sí continúa";
+      phraseText.innerText = "Atrapaste todas, ahora sí continúa";
       continueBtn.style.display = 'inline-block';
     }
 
@@ -152,7 +160,7 @@
     }
 
     function goToNextPage() {
-      window.location.href = "final.html"; // Nueva página con botones "Sí" y "No"
+      window.location.href = "final.html"; 
     }
 
     function startGame() {
