@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Una página bonita pa' ti</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #f8bbd0, #f48fb1);
+    }
+    #game {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 80px;
+    }
+    .title {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 24px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      z-index: 10;
+    }
+    .heart {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background-image: url('https://cdn-icons-png.flaticon.com/512/833/833472.png');
+      background-size: cover;
+      cursor: pointer;
+      animation: float 4s infinite ease-in-out;
+    }
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+    #message {
+      position: fixed;
+      bottom: 10%;
+      width: 90%;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      font-size: 18px;
+      color: #333;
+      display: none;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    #message button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #f06292;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #message button:hover {
+      background-color: #d81b60;
+    }
+    .continue-btn {
+      margin-top: 20px;
+      padding: 10px 25px;
+      font-size: 18px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .continue-btn:hover {
+      background-color: #388e3c;
+    }
+  </style>
+</head>
+<body>
+  <div id="game">
+    <div class="title">Atrapa todos los corazones, son 8</div>
+  </div>
+  <div id="message">
+    <p id="phrase">¡Atrapa corazones para ver las frases!</p>
+    <button onclick="restartGame()">Reiniciar si no atrapaste todas</button>
+    <button class="continue-btn" id="continueBtn" onclick="goToNextPage()" style="display: none;">Continuar</button>
+  </div>
+
+  <script>
+    const gameContainer = document.getElementById('game');
+    const messageBox = document.getElementById('message');
+    const phraseText = document.getElementById('phrase');
+    const continueBtn = document.getElementById('continueBtn');
+    let heartsToCatch = 8;
+    let caughtHearts = 0;
+
+    const phrases = [
+      "Eres muy bonita",
+      "Debí verte más en el colegio :C",
+      "Carita toda hermosa",
+      "Tania linda",
+      "Lindos ojitos que tienes",
+      "Bailamos?",
+      "Manitas lindas",
+      "HERMOSAAAAAAAAAAAAAAA"
+    ];
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 80 + 'vw';
+      heart.style.top = Math.random() * 80 + 'vh';
+
+      heart.addEventListener('click', () => {
+        if (caughtHearts < phrases.length) {
+          phraseText.innerText = phrases[caughtHearts];
+          messageBox.style.display = 'block';
+          caughtHearts++;
+          heart.remove();
+
+          if (caughtHearts === heartsToCatch) {
+            showFinalMessage();
+          }
+        }
+      });
+
+      gameContainer.appendChild(heart);
+    }
+
+    function showFinalMessage() {
+      phraseText.innerText = "Atrapaste todos, ahora sí continúa";
+      continueBtn.style.display = 'inline-block';
+    }
+
+    function restartGame() {
+      messageBox.style.display = 'none';
+      phraseText.innerText = "¡Atrapa corazones para ver las frases!";
+      continueBtn.style.display = 'none';
+      caughtHearts = 0;
+      startGame();
+    }
+
+    function goToNextPage() {
+      window.location.href = "final.html"; // Nueva página con botones "Sí" y "No"
+    }
+
+    function startGame() {
+      for (let i = 0; i < heartsToCatch; i++) {
+        setTimeout(createHeart, i * 800);
+      }
+    }
+
+    startGame();
+  </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Quieres salir conmigo?</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to bottom, #f8bbd0, #f48fb1);
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    button {
+      margin: 10px;
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    #yesBtn {
+      background-color: #4caf50;
+      color: white;
+    }
+    #noBtn {
+      background-color: #d81b60;
+      color: white;
+    }
+    #image-container {
+      display: none;
+      text-align: center;
+    }
+    img {
+      max-width: 60%;
+      border-radius: 15px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <h1>¿Quieres salir conmigo? 🥺</h1>
+  <button id="yesBtn" onclick="showImage()">Sí</button>
+  <button id="noBtn" onclick="makeYesBigger()">No</button>
+
+  <div id="image-container">
+    <h1>Siisisisi, cuando cuando jajaja :3</h1>
+    <img src="foto.jpg" alt="Confirmación">
+  </div>
+
+  <script>
+    let size = 1; // Tamaño inicial del botón "Sí"
+
+    function makeYesBigger() {
+      size += 0.3; // Aumenta el tamaño del botón "Sí" en cada clic
+      document.getElementById('yesBtn').style.transform = `scale(${size})`;
+    }
+
+    function showImage() {
+      document.getElementById('image-container').style.display = "block";
+    }
+  </script>
+</body>
+</html>
